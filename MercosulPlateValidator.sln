@@ -13,6 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercosulPlateValidator.Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		.github\workflows\build.yml = .github\workflows\build.yml
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 		README.md = README.md
@@ -59,5 +60,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{292F1650-C631-4815-8896-CB4651495FF0} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{B3DE29DD-E0F8-4926-AC19-E2624D673C93} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B7FD542-5EDF-4C42-9BE7-206ECA27BEFD}
 	EndGlobalSection
 EndGlobal
