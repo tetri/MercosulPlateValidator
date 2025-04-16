@@ -17,7 +17,7 @@ namespace MercosulPlateValidator.Validators
             }
 
             // Formato novo: AAA9A99
-            if (ValidateFormat(plate, @"^[A-Za-z]{3}\d[A-Za-z]\d{2}$"))
+            if (ValidateFormat(plate, @"^[A-Za-z]{3}\s?\d[A-Za-z]\d{2}$"))
             {
                 result.IsValid = true;
                 result.PlateType = "New";

@@ -1,7 +1,4 @@
-﻿// tests/PlacaMercosulValidator.Tests/ValidatorsTests/BrazilPlateValidatorTests.cs
-
-// tests/PlacaMercosulValidator.Tests/ValidatorsTests/BrazilPlateValidatorTests.cs
-using MercosulPlateValidator.Validators;
+﻿using MercosulPlateValidator.Validators;
 
 namespace MercosulPlateValidator.Tests.ValidatorsTests
 {
