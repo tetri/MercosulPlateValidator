@@ -1,5 +1,10 @@
 # MercosulPlateValidator
 
+[![NuGet Version](https://img.shields.io/nuget/v/tetri.net.MercosulPlateValidator.svg?style=flat-square)](https://www.nuget.org/packages/tetri.net.MercosulPlateValidator/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/tetri.net.MercosulPlateValidator.svg?style=flat-square)](https://www.nuget.org/packages/tetri.net.MercosulPlateValidator/)
+[![License](https://img.shields.io/github/license/tetri/MercosulPlateValidator.svg?style=flat-square)](LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/tetri/MercosulPlateValidator/publish.yml?style=flat-square)](https://github.com/tetri/MercosulPlateValidator/actions)
+
 Biblioteca .NET para validação de placas de veículos do Mercosul (Brasil, Argentina, Paraguai, Uruguai) e identificação do país de origem.
 
 ## Funcionalidades

@@ -7,7 +7,7 @@
 		<Authors>Tetri Mesquita</Authors>
 		<Description>Biblioteca para validação de placas de veículos do Mercosul (Brasil, Argentina, Paraguai, Uruguai) e identificação do país de origem. Suporta formatos antigos e novos.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/tetri/SemanticVersioning</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/tetri/MercosulPlateValidator</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/tetri/MercosulPlateValidator.git</RepositoryUrl>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
