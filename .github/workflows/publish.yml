@@ -18,9 +18,9 @@ jobs:
           fetch-depth: 0 # Necess�rio para o MinVer verificar o hist�rico de tags
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: "8.0.x"
 
       - name: Install dependencies
         run: dotnet restore

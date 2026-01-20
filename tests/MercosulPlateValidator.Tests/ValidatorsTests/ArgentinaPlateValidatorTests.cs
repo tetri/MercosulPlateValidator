@@ -24,7 +24,7 @@ namespace MercosulPlateValidator.Tests.ValidatorsTests
         [InlineData(null, false)]
         [InlineData("ABC-1234", false)] // Formato brasileiro
         public void ValidateArgentinaPlate_ShouldReturnCorrectResult(
-            string plate, bool expectedValid, string plateType = null)
+            string? plate, bool expectedValid, string? plateType = null)
         {
             var result = _validator.Validate(plate);
 

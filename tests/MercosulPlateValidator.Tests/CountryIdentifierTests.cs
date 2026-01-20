@@ -37,7 +37,7 @@
         [InlineData("1234567", null, null)] // Números apenas
         [InlineData("ABCDEFG", null, null)] // Letras apenas
         public void IdentifyCountry_ShouldCorrectlyIdentify(
-            string plate, string expectedCountry, string expectedPlateType)
+            string? plate, string? expectedCountry, string? expectedPlateType)
         {
             // Act
             var result = CountryIdentifier.IdentifyCountry(plate);

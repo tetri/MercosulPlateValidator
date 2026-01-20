@@ -14,7 +14,7 @@ namespace MercosulPlateValidator.Tests.ValidatorsTests
         [InlineData("A 123456", true, "Official")]    // Oficial
         [InlineData("ABC 123", false)]               // Inválido
         [InlineData("123 ABC", false)]               // Inválido
-        public void ValidateUruguayPlate_ShouldReturnCorrectResult(string plate, bool expectedValid, string plateType = null)
+        public void ValidateUruguayPlate_ShouldReturnCorrectResult(string? plate, bool expectedValid, string? plateType = null)
         {
             var result = _validator.Validate(plate);
             Assert.Equal(expectedValid, result.IsValid);
