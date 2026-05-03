@@ -8,58 +8,58 @@
 [![Code Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen?style=flat-square)](https://github.com/tetri/MercosulPlateValidator)
 
 
-Biblioteca .NET para validação de placas de veículos do Mercosul (Brasil, Argentina, Paraguai, Uruguai) e identificação do país de origem.
+Biblioteca .NET para validación de placas de vehículos del Mercosur (Brasil, Argentina, Paraguay, Uruguay) e identificación del país de origen.
 
 ## Funcionalidades
 
-- Validação de placas de todos os países do Mercosul
-- Suporte para formatos antigos e novos
-- Identificação do país de origem da placa
-- Fácil integração em projetos .NET
+- Validación de placas de todos los países del Mercosur
+- Soporte para formatos antiguos y nuevos
+- Identificación do país de origen de la placa
+- Fácil integración en proyectos .NET
 
-## Como usar
+## Cómo usar
 
 ```csharp
-// Instale o pacote
+// Instale el paquete
 // NuGet: Install-Package tetri.net.MercosulPlateValidator
 
 using MercosulPlateValidator;
 
-// Validar uma placa brasileira
+// Validar una placa brasileña
 var result = MercosulPlate.ValidateBrazilianPlate("ABC1D23");
 if (result.IsValid)
 {
-    Console.WriteLine($"Placa válida do {result.Country}, formato {result.PlateType}");
+    Console.WriteLine($"Placa válida de {result.Country}, formato {result.PlateType}");
 }
 
-// Identificar o país de qualquer placa do Mercosul
+// Identificar el país de cualquier placa del Mercosur
 var identification = MercosulPlate.ValidatePlate("AB 123 CD");
 if (identification.IsValid)
 {
-    Console.WriteLine($"Placa do {identification.Country}");
+    Console.WriteLine($"Placa de {identification.Country}");
 }
 
-// Validar placa paraguaia
+// Validar placa paraguaya
 var paraguayResult = MercosulPlate.ValidatePlate("1234 ABC");
 if (paraguayResult.IsValid)
 {
-    Console.WriteLine($"Placa {paraguayResult.PlateType} do {paraguayResult.Country}");
+    Console.WriteLine($"Placa {paraguayResult.PlateType} de {paraguayResult.Country}");
 }
 
-// Validar placa uruguaia
+// Validar placa uruguaya
 var uruguayResult = MercosulPlate.ValidatePlate("AB 12345");
 if (uruguayResult.IsValid)
 {
-    Console.WriteLine($"Placa {uruguayResult.PlateType} do {uruguayResult.Country}");
+    Console.WriteLine($"Placa {uruguayResult.PlateType} de {uruguayResult.Country}");
 }
 ```
 
 ## Requisitos
 
-- .NET Standard 2.0 ou superior
-- Compatível com .NET Framework 4.6.1+, .NET Core 2.0+, .NET 5.0+, .NET 6.0+, .NET 7.0+, .NET 8.0+
+- .NET Standard 2.0 o superior
+- Compatible con .NET Framework 4.6.1+, .NET Core 2.0+, .NET 5.0+, .NET 6.0+, .NET 7.0+, .NET 8.0+
 
-## Instalação
+## Instalación
 
 ### Package Manager Console
 ```powershell
@@ -73,72 +73,73 @@ dotnet add package tetri.net.MercosulPlateValidator
 
 ### PackageReference
 ```xml
-<PackageReference Include="tetri.net.MercosulPlateValidator" Version="0.2.1" />
+<PackageReference Include="tetri.net.MercosulPlateValidator" Version="0.3.0" />
 ```
 
-## Formatos Suportados
+## Formatos Soportados
 
 ### Brasil
-- **Antigo**: `ABC1234` ou `ABC-1234` (3 letras + 4 dígitos)
-- **Novo Mercosul**: `ABC1D23` ou `ABC 1D23` (3 letras + 1 dígito + 1 letra + 2 dígitos)
+- **Antiguo**: `ABC1234` o `ABC-1234` (3 letras + 4 dígitos)
+- **Nuevo Mercosul**: `ABC1D23` o `ABC 1D23` (3 letras + 1 dígito + 1 letra + 2 dígitos)
 
 ### Argentina
-- **Antigo**: `ABC123` ou `ABC 123` (3 letras + 3 dígitos)
-- **Novo Mercosul**: `AB123CD` ou `AB 123 CD` (2 letras + 3 dígitos + 2 letras)
+- **Antiguo**: `ABC123` o `ABC 123` (3 letras + 3 dígitos)
+- **Nuevo Mercosul**: `AB123CD` o `AB 123 CD` (2 letras + 3 dígitos + 2 letras)
 
-### Paraguai
-- **Antigo**: `1234ABC` ou `1234 ABC` (4 dígitos + 3 letras)
-- **Novo Mercosul**: `ABC1234` ou `ABC 1234` (3 letras + 4 dígitos)
-- **Motos**: `123ABC` ou `123 ABC` (3 dígitos + 3 letras)
+### Paraguay
+- **Antiguo**: `1234ABC` o `1234 ABC` (4 dígitos + 3 letras)
+- **Nuevo Mercosul**: `ABC1234` o `ABC 1234` (3 letras + 4 dígitos)
+- **Motos**: `123ABC` o `123 ABC` (3 dígitos + 3 letras)
 
-### Uruguai
-- **Novo Mercosul**: `AB12345` ou `AB 12345` (2 letras + 5 dígitos)
-- **Oficial**: `A123456` ou `A 123456` (1 letra + 6 dígitos)
+### Uruguay
+- **Nuevo Mercosul**: `AB12345` o `AB 12345` (2 letras + 5 dígitos)
+- **Oficial**: `A123456` o `A 123456` (1 letra + 6 dígitos)
 
-## Resultado da Validação
+## Resultado de la Validación
 
-O método retorna um objeto `PlateValidationResult` com as seguintes propriedades:
+El método devuelve un objeto `PlateValidationResult` con las siguientes propiedades:
 
-- `IsValid` (bool): Indica se a placa é válida
-- `Country` (string): País identificado ("Brazil", "Argentina", "Paraguay", "Uruguay")
-- `PlateType` (string): Tipo de placa ("Old", "New", "Motorcycle", "Official")
-- `ErrorMessage` (string): Mensagem de erro caso a placa seja inválida
+- `IsValid` (bool): Indica si la placa es válida
+- `Country` (enum): País identificado (Brazil, Argentina, Paraguay, Uruguay)
+- `PlateType` (enum): Tipo de placa (Old, New, Motorcycle, Official)
+- `ErrorMessage` (string): Mensaje de error en caso de que la placa sea inválida (localizado)
+- `PossibleCountries` (List<Country>): Lista de posibles países que coinciden con el formato
 
-## Exemplos Adicionais
+## Ejemplos Adicionales
 
 ```csharp
 using MercosulPlateValidator;
 
-// Validar placa argentina (formato antigo)
+// Validar placa argentina (formato antiguo)
 var argentinaOld = MercosulPlate.ValidatePlate("ABC 123");
 Console.WriteLine($"Válida: {argentinaOld.IsValid}, País: {argentinaOld.Country}, Tipo: {argentinaOld.PlateType}");
 
-// Validar placa brasileira (formato novo)
+// Validar placa brasileña (formato nuevo)
 var brazilNew = MercosulPlate.ValidateBrazilianPlate("ABC1D23");
 Console.WriteLine($"Válida: {brazilNew.IsValid}, Tipo: {brazilNew.PlateType}");
 
-// Tratamento de erro
+// Tratamiento de error
 var invalidPlate = MercosulPlate.ValidatePlate("INVALID");
 if (!invalidPlate.IsValid)
 {
-    Console.WriteLine($"Erro: {invalidPlate.ErrorMessage}");
+    Console.WriteLine($"Error: {invalidPlate.ErrorMessage}");
 }
 ```
 
-## Contribuindo
+## Contribuyendo
 
-Contribuições são bem-vindas! Por favor, leia o [Código de Conduta](CODE_OF_CONDUCT.md) antes de contribuir.
+¡Las contribuciones son bienvenidas! Por favor, lea el [Código de Conducta](CODE_OF_CONDUCT.md) antes de contribuir.
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abra um Pull Request
+1. Haga un fork del proyecto
+2. Cree una branch para su feature (`git checkout -b feature/MiFeature`)
+3. Commit sus cambios (`git commit -m 'Añade MiFeature'`)
+4. Push para la branch (`git push origin feature/MiFeature`)
+5. Abra un Pull Request
 
-## Licença
+## Licencia
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este proyecto está licenciado bajo la licencia MIT - vea el archivo [LICENSE](LICENSE) para detalles.
 
-## Segurança
+## Seguridad
 
-Para reportar vulnerabilidades de segurança, consulte [SECURITY.md](SECURITY.md).
+Para reportar vulnerabilidades de seguridad, consulte [SECURITY.md](SECURITY.md).

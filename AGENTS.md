@@ -1,63 +1,56 @@
-# Especificações Técnicas e Guia do Agente - MercosulPlateValidator
+# Especificaciones Técnicas y Guía del Agente - MercosulPlateValidator
 
-Este documento fornece uma visão técnica detalhada do projeto `MercosulPlateValidator` para auxiliar agentes e desenvolvedores na manutenção e evolução do código.
+Este documento proporciona una visión técnica detallada del proyecto `MercosulPlateValidator` para ayudar a agentes y desarrolladores en el mantenimiento y evolución del código.
 
-## 1. Visão Geral do Projeto
+## 1. Visión General del Proyecto
 
-A `MercosulPlateValidator` é uma biblioteca .NET projetada para validar formatos de placas de veículos dos países membros do Mercosul (Brasil, Argentina, Paraguai e Uruguai) e identificar o país de origem com base no padrão da placa.
+`MercosulPlateValidator` es una biblioteca .NET diseñada para validar formatos de placas de vehículos de los países miembros del Mercosur (Brasil, Argentina, Paraguay y Uruguay) e identificar el país de origen basándose en el patrón de la placa.
 
-## 2. Arquitetura
+## 2. Arquitectura
 
-O projeto utiliza uma arquitetura baseada no padrão **Strategy**, permitindo que diferentes algoritmos de validação sejam aplicados de forma modular.
+El proyecto utiliza una arquitectura basada en el patrón **Strategy**, permitiendo que diferentes algoritmos de validación se apliquen de forma modular.
 
-### 2.1. Estrutura de Classes Principal
+### 2.1. Estructura de Clases Principal
 
-- **`MercosulPlate`**: Ponto de entrada estático (Facade) para as funcionalidades de validação.
-- **`CountryIdentifier`**: Responsável por orquestrar a validação entre os diferentes países.
-- **`BasePlateValidator`**: Classe base abstrata que define o contrato para os validadores de país e fornece métodos utilitários de Regex.
-- **Validadores Concretos** (`BrazilPlateValidator`, `ArgentinaPlateValidator`, etc.): Implementam as regras específicas de Regex para cada país.
-- **`PlateValidationResult`**: DTO que carrega o resultado da validação.
+- **`MercosulPlate`**: Punto de entrada estático (Facade) para las funcionalidades de validación.
+- **`CountryIdentifier`**: Responsable de orquestar la validación entre los diferentes países.
+- **`BasePlateValidator`**: Clase base abstracta que define el contrato para los validadores de país y proporciona métodos utilitarios de Regex.
+- **Validadores Concretos** (`BrazilPlateValidator`, `ArgentinaPlateValidator`, etc.): Implementan las reglas específicas de Regex para cada país.
+- **`PlateValidationResult`**: DTO que contiene el resultado de la validación.
 
-### 2.2. Fluxo de Validação
+### 2.2. Flujo de Validación
 
-1. A entrada é recebida pelo `MercosulPlate.ValidatePlate(string)`.
-2. O `CountryIdentifier` percorre uma lista de validadores registrados.
-3. O primeiro validador que retornar `IsValid = true` define o resultado.
+1. La entrada es recibida por `MercosulPlate.ValidatePlate(string)`.
+2. `CountryIdentifier` recorre una lista de validadores registrados.
+3. El primer validador que devuelva `IsValid = true` define el resultado principal, pero se identifican todos los posibles países.
 
-## 3. Padrões de Codificação e Requisitos
+## 3. Patrones de Codificación y Requisitos
 
-- **Target Framework**: .NET Standard 2.0 (compatibilidade máxima).
-- **Testes**: Utiliza XUnit para testes unitários.
-- **Convenções**: Segue as convenções padrão de C# (PascalCase para métodos e classes).
+- **Target Framework**: .NET Standard 2.0 (compatibilidad máxima).
+- **Pruebas**: Utiliza XUnit para pruebas unitarias.
+- **Convenciones**: Sigue las convenciones estándar de C# (PascalCase para métodos y clases).
 
-## 4. Melhorias Sugeridas (Roadmap Técnico)
-
-Durante a avaliação do projeto, foram identificadas as seguintes oportunidades de melhoria:
+## 4. Mejoras Implementadas
 
 ### 4.1. Uso de Enums
-Atualmente, `Country` e `PlateType` são representados como strings em `PlateValidationResult`.
-- **Sugestão**: Substituir por `enum Country` e `enum PlateType` para evitar erros de digitação e facilitar o uso em lógicas condicionais.
+`Country` y `PlateType` se representan como enums en `PlateValidationResult`.
 
-### 4.2. Performance de Expressões Regulares
-Os Regex são instanciados ou chamados via métodos estáticos simples.
-- **Sugestão**: Utilizar campos `static readonly Regex` com `RegexOptions.Compiled` (ou `GeneratedRegex` em .NET 7+) para melhorar a performance em cenários de validação em massa.
+### 4.2. Rendimiento de Expresiones Regulares
+Los Regex se definen como campos `static readonly Regex` con `RegexOptions.Compiled` para mejorar el rendimiento.
 
-### 4.3. Normalização de Entrada
-A biblioteca lida com espaços e hífens nos Regex, mas isso pode tornar os padrões complexos.
-- **Sugestão**: Criar um método de sanitização que remova caracteres não alfanuméricos antes da validação, simplificando os padrões.
+### 4.3. Normalización de Entrada
+Un método de sanitización elimina caracteres no alfanuméricos antes de la validación.
 
-### 4.4. Tratamento de Ambiguidades
-Alguns padrões são idênticos entre países (ex: `AAA1234` é válido no formato antigo do Brasil, novo do Paraguai e antigo do Uruguai).
-- **Sugestão**: O `PlateValidationResult` poderia retornar uma lista de possíveis países (`PossibleCountries`) em vez de apenas o primeiro encontrado, ou permitir que o usuário passe um "hint" de país esperado.
+### 4.4. Tratamiento de Ambigüedades
+`PlateValidationResult` devuelve una lista de posibles países (`PossibleCountries`).
 
-### 4.5. Internacionalização (i18n)
-As mensagens de erro estão fixas em português.
-- **Sugestão**: Implementar suporte a recursos (`.resx`) para permitir mensagens em Espanhol e Inglês.
+### 4.5. Internacionalización (i18n)
+Implementado soporte para recursos (`.resx`) con mensajes en Portugués (predeterminado), Español e Inglés.
 
-## 5. Como Executar Testes
+## 5. Cómo Ejecutar Pruebas
 
-Para garantir a integridade do projeto:
+Para garantizar la integridad del proyecto:
 ```bash
 dotnet test
 ```
-Os testes estão localizados em `tests/MercosulPlateValidator.Tests/` e cobrem cenários de placas válidas e inválidas para todos os países suportados.
+Las pruebas se encuentran en `tests/MercosulPlateValidator.Tests/` y cubren escenarios de placas válidas e inválidas para todos los países soportados.

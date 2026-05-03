@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MercosulPlateValidator.Models;
+using MercosulPlateValidator.Resources;
 using MercosulPlateValidator.Validators;
 
 namespace MercosulPlateValidator
@@ -30,7 +31,7 @@ namespace MercosulPlateValidator
 
             if (results.Any())
             {
-                // Pega o primeiro resultado como o principal, mas preenche PossibleCountries
+                // Toma el primer resultado como el principal, pero completa PossibleCountries
                 var firstMatch = results.First();
                 firstMatch.PossibleCountries = results.Select(r => r.Country).ToList();
                 return firstMatch;
@@ -41,7 +42,7 @@ namespace MercosulPlateValidator
                 IsValid = false,
                 Country = Country.Unknown,
                 PlateType = PlateType.Unknown,
-                ErrorMessage = "Placa não corresponde a nenhum país do Mercosul"
+                ErrorMessage = Messages.NoMatchFound
             };
         }
     }

@@ -3,9 +3,9 @@
 		<LangVersion>10.0</LangVersion>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<PackageId>tetri.net.MercosulPlateValidator</PackageId>
-		<Version>0.2.0</Version>
+		<Version>0.3.0</Version>
 		<Authors>Tetri Mesquita</Authors>
-		<Description>Biblioteca para validação de placas de veículos do Mercosul (Brasil, Argentina, Paraguai, Uruguai) e identificação do país de origem. Suporta formatos antigos e novos.</Description>
+		<Description>Biblioteca para la validación de placas de vehículos del Mercosur (Brasil, Argentina, Paraguay, Uruguay) e identificación del país de origen. Soporta formatos antiguos y nuevos.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/tetri/MercosulPlateValidator</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
@@ -27,5 +27,26 @@
 
 	<ItemGroup>
 		<PackageReference Include="MinVer" Version="7.0.0" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Resources\Messages.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Messages.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Messages.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Messages.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Messages.es.resx">
+			<DependentUpon>Messages.resx</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Messages.en.resx">
+			<DependentUpon>Messages.resx</DependentUpon>
+		</EmbeddedResource>
 	</ItemGroup>
 </Project>
