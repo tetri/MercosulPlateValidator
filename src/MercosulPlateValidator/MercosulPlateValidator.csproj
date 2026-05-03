@@ -3,7 +3,7 @@
 		<LangVersion>10.0</LangVersion>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<PackageId>tetri.net.MercosulPlateValidator</PackageId>
-		<Version>0.1.0</Version>
+		<Version>0.2.0</Version>
 		<Authors>Tetri Mesquita</Authors>
 		<Description>Biblioteca para validação de placas de veículos do Mercosul (Brasil, Argentina, Paraguai, Uruguai) e identificação do país de origem. Suporta formatos antigos e novos.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>

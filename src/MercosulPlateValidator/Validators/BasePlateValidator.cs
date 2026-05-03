@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using MercosulPlateValidator.Models;
 
 namespace MercosulPlateValidator.Validators
@@ -6,12 +7,14 @@ namespace MercosulPlateValidator.Validators
     {
         public abstract PlateValidationResult Validate(string plate);
 
-        protected bool ValidateFormat(string plate, string regexPattern)
+        protected string Sanitize(string plate)
         {
             if (string.IsNullOrWhiteSpace(plate))
-                return false;
+                return string.Empty;
 
-            return System.Text.RegularExpressions.Regex.IsMatch(plate, regexPattern);
+            // Remove caracteres não alfanuméricos e converte para maiúsculo
+            var sanitized = Regex.Replace(plate, @"[^a-zA-Z0-9]", "");
+            return sanitized.ToUpperInvariant();
         }
     }
 }

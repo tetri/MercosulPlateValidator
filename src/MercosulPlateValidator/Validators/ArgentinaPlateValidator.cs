@@ -1,26 +1,31 @@
-﻿using MercosulPlateValidator.Models;
+using System.Text.RegularExpressions;
+using MercosulPlateValidator.Models;
 
 namespace MercosulPlateValidator.Validators
 {
     public class ArgentinaPlateValidator : BasePlateValidator
     {
+        private static readonly Regex OldFormatRegex = new Regex(@"^[A-Z]{3}\d{3}$", RegexOptions.Compiled);
+        private static readonly Regex NewFormatRegex = new Regex(@"^[A-Z]{2}\d{3}[A-Z]{2}$", RegexOptions.Compiled);
+
         public override PlateValidationResult Validate(string plate)
         {
-            var result = new PlateValidationResult { Country = "Argentina" };
+            var result = new PlateValidationResult { Country = Country.Argentina };
+            var sanitizedPlate = Sanitize(plate);
 
-            // Formato antigo: AAA 999
-            if (ValidateFormat(plate, @"^[A-Za-z]{3}\s?\d{3}$"))
+            // Formato antigo: AAA999
+            if (OldFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
-                result.PlateType = "Old";
+                result.PlateType = PlateType.Old;
                 return result;
             }
 
-            // Formato novo: AA 999 AA
-            if (ValidateFormat(plate, @"^[A-Za-z]{2}\s?\d{3}\s?[A-Za-z]{2}$"))
+            // Formato novo: AA999AA
+            if (NewFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
-                result.PlateType = "New";
+                result.PlateType = PlateType.New;
                 return result;
             }
 
