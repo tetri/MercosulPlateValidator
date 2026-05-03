@@ -1,4 +1,5 @@
 using Xunit;
+using MercosulPlateValidator.Models;
 
 namespace MercosulPlateValidator.Tests
 {
@@ -18,11 +19,11 @@ namespace MercosulPlateValidator.Tests
         }
 
         [Theory]
-        [InlineData("ABC1234", "Brazil")]     // Brasil (prioritário)
-        [InlineData("AB123CD", "Argentina")]  // Argentina novo
-        [InlineData("1234ABC", "Paraguay")]   // Paraguai antigo
-        [InlineData("AB12345", "Uruguay")]    // Uruguai novo
-        public void ValidatePlate_ShouldIdentifyCountry(string plate, string expectedCountry)
+        [InlineData("ABC1234", Country.Brazil)]     // Brasil (prioritário)
+        [InlineData("AB123CD", Country.Argentina)]  // Argentina novo
+        [InlineData("1234ABC", Country.Paraguay)]   // Paraguai antigo
+        [InlineData("AB12345", Country.Uruguay)]    // Uruguai novo
+        public void ValidatePlate_ShouldIdentifyCountry(string plate, Country expectedCountry)
         {
             var result = MercosulPlate.ValidatePlate(plate);
             Assert.True(result.IsValid);
@@ -41,4 +42,3 @@ namespace MercosulPlateValidator.Tests
         }
     }
 }
-

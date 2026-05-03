@@ -1,34 +1,40 @@
-﻿using MercosulPlateValidator.Models;
+using System.Text.RegularExpressions;
+using MercosulPlateValidator.Models;
 
 namespace MercosulPlateValidator.Validators
 {
     public class ParaguayPlateValidator : BasePlateValidator
     {
+        private static readonly Regex OldFormatRegex = new Regex(@"^\d{4}[A-Z]{3}$", RegexOptions.Compiled);
+        private static readonly Regex NewFormatRegex = new Regex(@"^[A-Z]{3}\d{4}$", RegexOptions.Compiled);
+        private static readonly Regex MotorcycleFormatRegex = new Regex(@"^\d{3}[A-Z]{3}$", RegexOptions.Compiled);
+
         public override PlateValidationResult Validate(string plate)
         {
-            var result = new PlateValidationResult { Country = "Paraguay" };
+            var result = new PlateValidationResult { Country = Country.Paraguay };
+            var sanitizedPlate = Sanitize(plate);
 
-            // Formato antigo: 1234 ABC
-            if (ValidateFormat(plate, @"^\d{4}\s?[A-Za-z]{3}$"))
+            // Formato antigo: 1234ABC
+            if (OldFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
-                result.PlateType = "Old";
+                result.PlateType = PlateType.Old;
                 return result;
             }
 
-            // Formato novo: ABC 1234
-            if (ValidateFormat(plate, @"^[A-Za-z]{3}\s?\d{4}$"))
+            // Formato novo: ABC1234
+            if (NewFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
-                result.PlateType = "New";
+                result.PlateType = PlateType.New;
                 return result;
             }
 
-            // Formato motos: 123 ABC
-            if (ValidateFormat(plate, @"^\d{3}\s?[A-Za-z]{3}$"))
+            // Formato motos: 123ABC
+            if (MotorcycleFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
-                result.PlateType = "Motorcycle";
+                result.PlateType = PlateType.Motorcycle;
                 return result;
             }
 

@@ -1,4 +1,6 @@
-﻿using MercosulPlateValidator.Validators;
+using Xunit;
+using MercosulPlateValidator.Models;
+using MercosulPlateValidator.Validators;
 
 namespace MercosulPlateValidator.Tests.ValidatorsTests
 {
@@ -8,23 +10,23 @@ namespace MercosulPlateValidator.Tests.ValidatorsTests
 
         [Theory]
         // Formatos antigos (AAA 999)
-        [InlineData("ABC 123", true, "Old")]
-        [InlineData("ABC123", true, "Old")]
-        [InlineData("AB1 234", false)] // Letra no meio dos números - inválido
-        [InlineData("123 ABC", false)] // Ordem inversa - inválido
+        [InlineData("ABC 123", true, PlateType.Old)]
+        [InlineData("ABC123", true, PlateType.Old)]
+        [InlineData("AB1 234", false, PlateType.Unknown)] // Letra no meio dos números - inválido
+        [InlineData("123 ABC", false, PlateType.Unknown)] // Ordem inversa - inválido
 
         // Formatos novos (AA 999 AA)
-        [InlineData("AB 123 CD", true, "New")]
-        [InlineData("AB123CD", true, "New")]
-        [InlineData("AB 12 CD", false)] // Poucos dígitos
-        [InlineData("A1 234 BB", false)] // Formato misturado
+        [InlineData("AB 123 CD", true, PlateType.New)]
+        [InlineData("AB123CD", true, PlateType.New)]
+        [InlineData("AB 12 CD", false, PlateType.Unknown)] // Poucos dígitos
+        [InlineData("A1 234 BB", false, PlateType.Unknown)] // Formato misturado
 
         // Casos extremos
-        [InlineData("", false)]
-        [InlineData(null, false)]
-        [InlineData("ABC-1234", false)] // Formato brasileiro
+        [InlineData("", false, PlateType.Unknown)]
+        [InlineData(null, false, PlateType.Unknown)]
+        [InlineData("ABC-1234", false, PlateType.Unknown)] // Formato brasileiro
         public void ValidateArgentinaPlate_ShouldReturnCorrectResult(
-            string? plate, bool expectedValid, string? plateType = null)
+            string? plate, bool expectedValid, PlateType expectedPlateType)
         {
             var result = _validator.Validate(plate);
 
@@ -32,8 +34,8 @@ namespace MercosulPlateValidator.Tests.ValidatorsTests
 
             if (expectedValid)
             {
-                Assert.Equal("Argentina", result.Country);
-                Assert.Equal(plateType, result.PlateType);
+                Assert.Equal(Country.Argentina, result.Country);
+                Assert.Equal(expectedPlateType, result.PlateType);
             }
             else
             {
@@ -48,7 +50,7 @@ namespace MercosulPlateValidator.Tests.ValidatorsTests
             var result = _validator.Validate(newFormatPlate);
 
             Assert.True(result.IsValid);
-            Assert.Equal("New", result.PlateType);
+            Assert.Equal(PlateType.New, result.PlateType);
         }
 
         [Fact]
@@ -58,7 +60,7 @@ namespace MercosulPlateValidator.Tests.ValidatorsTests
             var result = _validator.Validate(oldFormatPlate);
 
             Assert.True(result.IsValid);
-            Assert.Equal("Old", result.PlateType);
+            Assert.Equal(PlateType.Old, result.PlateType);
         }
     }
 }

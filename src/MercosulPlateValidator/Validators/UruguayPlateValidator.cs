@@ -1,34 +1,40 @@
-﻿using MercosulPlateValidator.Models;
+using System.Text.RegularExpressions;
+using MercosulPlateValidator.Models;
 
 namespace MercosulPlateValidator.Validators
 {
     public class UruguayPlateValidator : BasePlateValidator
     {
+        private static readonly Regex OldFormatRegex = new Regex(@"^[A-Z]{3}\d{4}$", RegexOptions.Compiled);
+        private static readonly Regex NewFormatRegex = new Regex(@"^[A-Z]{2}\d{5}$", RegexOptions.Compiled);
+        private static readonly Regex OfficialFormatRegex = new Regex(@"^[A-Z]{1}\d{6}$", RegexOptions.Compiled);
+
         public override PlateValidationResult Validate(string plate)
         {
-            var result = new PlateValidationResult { Country = "Uruguay" };
+            var result = new PlateValidationResult { Country = Country.Uruguay };
+            var sanitizedPlate = Sanitize(plate);
 
-            // Formato antigo: ABC 1234
-            if (ValidateFormat(plate, @"^[A-Za-z]{3}\s?\d{4}$"))
+            // Formato antigo: ABC1234
+            if (OldFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
-                result.PlateType = "Old";
+                result.PlateType = PlateType.Old;
                 return result;
             }
 
-            // Formato novo: AB 12345
-            if (ValidateFormat(plate, @"^[A-Za-z]{2}\s?\d{5}$"))
+            // Formato novo: AB12345
+            if (NewFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
-                result.PlateType = "New";
+                result.PlateType = PlateType.New;
                 return result;
             }
 
-            // Formato especial (oficial): A 123456
-            if (ValidateFormat(plate, @"^[A-Za-z]{1}\s?\d{6}$"))
+            // Formato especial (oficial): A123456
+            if (OfficialFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
-                result.PlateType = "Official";
+                result.PlateType = PlateType.Official;
                 return result;
             }
 
