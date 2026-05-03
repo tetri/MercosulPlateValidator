@@ -12,7 +12,7 @@ namespace MercosulPlateValidator.Validators
             if (string.IsNullOrWhiteSpace(plate))
                 return string.Empty;
 
-            // Remove caracteres não alfanuméricos e converte para maiúsculo
+            // Elimina caracteres no alfanuméricos y convierte a mayúsculas
             var sanitized = Regex.Replace(plate, @"[^a-zA-Z0-9]", "");
             return sanitized.ToUpperInvariant();
         }

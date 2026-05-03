@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using MercosulPlateValidator.Models;
+using MercosulPlateValidator.Resources;
 
 namespace MercosulPlateValidator.Validators
 {
@@ -14,7 +15,7 @@ namespace MercosulPlateValidator.Validators
             var result = new PlateValidationResult { Country = Country.Uruguay };
             var sanitizedPlate = Sanitize(plate);
 
-            // Formato antigo: ABC1234
+            // Formato antiguo: ABC1234
             if (OldFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
@@ -22,7 +23,7 @@ namespace MercosulPlateValidator.Validators
                 return result;
             }
 
-            // Formato novo: AB12345
+            // Formato nuevo: AB12345
             if (NewFormatRegex.IsMatch(sanitizedPlate))
             {
                 result.IsValid = true;
@@ -39,7 +40,7 @@ namespace MercosulPlateValidator.Validators
             }
 
             result.IsValid = false;
-            result.ErrorMessage = "Formato de placa uruguaia inválido";
+            result.ErrorMessage = Messages.InvalidUruguayPlate;
             return result;
         }
     }
